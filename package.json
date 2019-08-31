@@ -1,0 +1,22 @@
+{
+  "name": "mhwdmg",
+  "version": "0.0.1",
+  "description": "TODO",
+  "main": "dist/index.js",
+  "repository": "ssh://git@github.com/reireias/mhwdmg",
+  "author": "reireias <reireias@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.2"
+  }
+}
