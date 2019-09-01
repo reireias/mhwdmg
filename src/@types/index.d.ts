@@ -1,0 +1,3 @@
+interface Weapon {
+  attack: number
+}
