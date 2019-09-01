@@ -1,3 +1,4 @@
-interface Weapon {
+interface IWeapon {
   attack: number
+  critical: number
 }
