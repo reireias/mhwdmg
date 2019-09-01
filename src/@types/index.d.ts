@@ -1,4 +1,14 @@
 interface IWeapon {
   attack: number
-  critical: number
+  affinity: number
+  element: number
+}
+
+interface ITarget {
+  physicalEffectiveness: number
+  elementalEffectiveness: number
+}
+
+interface IMotion {
+  value: number
 }
