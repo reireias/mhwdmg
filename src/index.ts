@@ -33,7 +33,8 @@ function physicalDamage(weapon: IWeapon, target: ITarget, motion: IMotion): numb
 function elementalDamage(weapon: IWeapon, target: ITarget): number {
   // 属性値 / 10 * 属性補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // element / 10 * elementRate * sharpnessRate * angerRate * elementalEffectiveness / 100
-  return Math.round(weapon.element / 10 * target.elementalEffectiveness / 100)
+  const angerRate: number = target.anger ? 1.1 : 1.0
+  return Math.round(weapon.element / 10 * angerRate * target.elementalEffectiveness / 100)
 }
 
 export function damage(weapon: IWeapon, target: ITarget, motion: IMotion): number {
