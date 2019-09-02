@@ -9,13 +9,13 @@ const PHYSICAL_SHARPNESS_RATE: { [key: string]: number } = {
   yellow: 1.0
 }
 const ELEMENTAL_SHARPNESS_RATE: { [key: string]: number } = {
-  blue: 1,
-  green: 1,
-  orange: 1,
-  purple: 1,
-  red: 1,
-  white: 1,
-  yellow: 1
+  blue: 1.0625,
+  green: 1.0,
+  orange: 0.5,
+  purple: 1.2,
+  red: 0.25,
+  white: 1.125,
+  yellow: 0.75
 }
 
 export function expectedValue(value: number): number {
