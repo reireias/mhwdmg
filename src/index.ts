@@ -8,6 +8,15 @@ const PHYSICAL_SHARPNESS_RATE: { [key: string]: number } = {
   white: 1.32,
   yellow: 1.0
 }
+const ELEMENTAL_SHARPNESS_RATE: { [key: string]: number } = {
+  blue: 1,
+  green: 1,
+  orange: 1,
+  purple: 1,
+  red: 1,
+  white: 1,
+  yellow: 1
+}
 
 export function expectedValue(value: number): number {
   return value * 2
@@ -33,8 +42,9 @@ function physicalDamage(weapon: IWeapon, target: ITarget, motion: IMotion): numb
 function elementalDamage(weapon: IWeapon, target: ITarget): number {
   // 属性値 / 10 * 属性補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // element / 10 * elementRate * sharpnessRate * angerRate * elementalEffectiveness / 100
+  const sharpnessRate: number = ELEMENTAL_SHARPNESS_RATE[weapon.sharpness]
   const angerRate: number = target.anger ? 1.1 : 1.0
-  return Math.round(weapon.element / 10 * angerRate * target.elementalEffectiveness / 100)
+  return Math.round(weapon.element / 10 * sharpnessRate * angerRate * target.elementalEffectiveness / 100)
 }
 
 export function damage(weapon: IWeapon, target: ITarget, motion: IMotion): number {
