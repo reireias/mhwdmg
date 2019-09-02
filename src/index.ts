@@ -18,10 +18,6 @@ const ELEMENTAL_SHARPNESS_RATE: { [key: string]: number } = {
   yellow: 0.75
 }
 
-export function expectedValue(value: number): number {
-  return value * 2
-}
-
 function calcAffinity(baseDamage: number, weapon: IWeapon): number {
   const affinityRate: number = 1.25
   const plusAffinity: number = Math.round(baseDamage * affinityRate) * Math.max(0, weapon.affinity) / 100
