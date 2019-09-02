@@ -25,7 +25,7 @@ function physicalDamage(weapon: IWeapon, target: ITarget, motion: IMotion): numb
   // モーション値 * 武器倍率 / 100 * 会心補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // motion * attack / 100 * affinityRate * sharpnessRate * angerRate * physicalEffectiveness / 100
   const sharpnessRate: number = PHYSICAL_SHARPNESS_RATE[weapon.sharpness]
-  const angerRate: number = 1.0
+  const angerRate: number = target.anger ? 1.1 : 1.0
   const baseDamage = motion.value * weapon.attack / 100 * sharpnessRate * angerRate * target.physicalEffectiveness / 100
   return calcAffinity(baseDamage, weapon)
 }
