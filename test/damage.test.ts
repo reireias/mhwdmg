@@ -1,4 +1,4 @@
-import { damage, IMotion, ITarget, IWeapon, Sharpness } from '../src/index'
+import { damage, IMotion, ITarget, IWeapon, Sharpness } from '../src/damage'
 
 interface ICondition {
   weapon: IWeapon
