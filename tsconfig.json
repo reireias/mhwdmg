@@ -23,8 +23,7 @@
       "src/@types"
     ]
   },
-  "exclude": [
-    "node_modules",
-    "test"
+  "include": [
+    "src/**/*"
   ]
 }
