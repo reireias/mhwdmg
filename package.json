@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "TODO",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "ssh://git@github.com/reireias/mhwdmg",
   "author": "reireias <reireias@gmail.com>",
   "license": "MIT",

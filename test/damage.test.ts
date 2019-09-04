@@ -1,4 +1,4 @@
-import { damage } from '@/index.ts'
+import { damage, IWeapon, ITarget, IMotion, Sharpness } from '../src/index'
 
 interface ICondition {
   weapon: IWeapon
