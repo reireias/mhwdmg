@@ -176,4 +176,14 @@ describe('elementalDamage', (): void => {
       expect(damage(condition.weapon, condition.target, condition.motion)).toBe(110)
     })
   })
+
+  describe('elementRate', (): void => {
+    const condition: ICondition = buildCondition()
+    const elementRate = 0.5
+
+    it('is 0.5 times normal', (): void => {
+      condition.motion.elementRate = elementRate
+      expect(damage(condition.weapon, condition.target, condition.motion)).toBe(50)
+    })
+  })
 })
