@@ -5,7 +5,7 @@ export interface IWeapon {
   sharpness: Sharpness
 }
 
-export type Sharpness = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'white' | 'purple'
+export type Sharpness = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'white' | 'purple' | 'ammo'
 
 export interface ITarget {
   physicalEffectiveness: number
@@ -38,6 +38,7 @@ export interface IBuff {
 
 // TODO: check purple rate in IB
 const PHYSICAL_SHARPNESS_RATE: { [key: string]: number } = {
+  ammo: 1.0,
   blue: 1.20,
   green: 1.05,
   orange: 0.75,
@@ -47,6 +48,7 @@ const PHYSICAL_SHARPNESS_RATE: { [key: string]: number } = {
   yellow: 1.0
 }
 const ELEMENTAL_SHARPNESS_RATE: { [key: string]: number } = {
+  ammo: 1.0,
   blue: 1.0625,
   green: 1.0,
   orange: 0.5,

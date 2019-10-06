@@ -37,7 +37,8 @@ describe('physicalDamage', (): void => {
       { key: 'green', value: 1.05 },
       { key: 'blue', value: 1.2 },
       { key: 'white', value: 1.32 },
-      { key: 'purple', value: 1.39 }
+      { key: 'purple', value: 1.39 },
+      { key: 'ammo', value: 1.0 }
     ]
     it('is correct', (): void => {
       sharpnessList.forEach((sharpness: { key: Sharpness, value: number }) => {
@@ -143,7 +144,8 @@ describe('elementalDamage', (): void => {
       { key: 'green', value: 1.0 },
       { key: 'blue', value: 1.0625 },
       { key: 'white', value: 1.125 },
-      { key: 'purple', value: 1.2 }
+      { key: 'purple', value: 1.2 },
+      { key: 'ammo', value: 1.0 }
     ]
 
     it('is correct', (): void => {
