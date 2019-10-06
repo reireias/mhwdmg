@@ -17,6 +17,25 @@ export interface IMotion {
   value: number
 }
 
+export interface IBuff {
+  // 力の護符
+  powerCharm: boolean
+  // 力の爪
+  powerTalon: boolean
+  // 怪力の種
+  mightSeed: boolean
+  // 怪力の丸薬
+  mightPill: boolean
+  // 食事
+  canteen: 'S' | 'M' | 'L'
+  // 鬼人薬
+  demondrug: boolean
+  // 鬼人薬G
+  megaDemondrug: boolean
+  // 鬼人の粉塵
+  demonPowder: boolean
+}
+
 // TODO: check purple rate in IB
 const PHYSICAL_SHARPNESS_RATE: { [key: string]: number } = {
   blue: 1.20,

@@ -1,7 +1,7 @@
 {
   "name": "mhwdmg",
   "version": "0.0.1",
-  "description": "TODO",
+  "description": "damage calcurator for MHW IB",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "ssh://git@github.com/reireias/mhwdmg",
