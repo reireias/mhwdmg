@@ -13,7 +13,7 @@ export function applyBuff(weapon: IWeapon, buff: IBuff): IWeapon {
   }
   // 怪力の種/丸薬
   if (buff.mightPill) {
-    result.attack += 20
+    result.attack += 25
   } else if (buff.mightSeed) {
     result.attack += 10
   }

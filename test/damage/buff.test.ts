@@ -22,10 +22,10 @@ describe('buff', (): void => {
     expect(damageWithCondition(condition)).toBe(110)
     condition.buff.mightSeed = false
     condition.buff.mightPill = true
-    expect(damageWithCondition(condition)).toBe(120)
+    expect(damageWithCondition(condition)).toBe(125)
     condition.buff.mightSeed = true
     condition.buff.mightPill = true
-    expect(damageWithCondition(condition)).toBe(120)
+    expect(damageWithCondition(condition)).toBe(125)
   })
 
   test('canteen is applied', (): void => {
@@ -63,7 +63,7 @@ describe('buff', (): void => {
     condition.buff.demondrug = true
     condition.buff.megaDemondrug = true
     condition.buff.demonPowder = true
-    expect(damageWithCondition(condition)).toBe(167)
+    expect(damageWithCondition(condition)).toBe(172)
   })
 })
 
