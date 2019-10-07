@@ -1,6 +1,7 @@
 import { applyBuff } from './buff'
 import { ELEMENTAL_SHARPNESS_RATE, PHYSICAL_SHARPNESS_RATE } from './constant'
-import { IBuff, IMotion, ITarget, IWeapon } from './types/mhwdmg'
+import { applySkill } from './skill'
+import { IBuff, IMotion, ISkill, ITarget, IWeapon } from './types/mhwdmg'
 
 function calcExpected(baseDamage: number, weapon: IWeapon): number {
   const affinityRate: number = 1.25
@@ -71,11 +72,13 @@ export function damage(
   weapon: IWeapon,
   target: ITarget,
   motion: IMotion,
-  buff: IBuff
+  buff: IBuff,
+  skill: ISkill
 ): number {
-  const updatedWeapon = applyBuff(weapon, buff)
+  const buffApplied = applyBuff(weapon, buff)
+  const skillApplied = applySkill(buffApplied, skill, target)
   return (
-    physicalDamage(updatedWeapon, target, motion, buff.coating) +
-    elementalDamage(updatedWeapon, target, motion.elementRate)
+    physicalDamage(skillApplied, target, motion, buff.coating) +
+    elementalDamage(skillApplied, target, motion.elementRate)
   )
 }

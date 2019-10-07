@@ -2,6 +2,7 @@ export interface IWeapon {
   attack: number
   affinity: number
   element: number
+  elementHidden: boolean
   sharpness: Sharpness
 }
 
@@ -11,6 +12,7 @@ export interface ITarget {
   physicalEffectiveness: number
   elementalEffectiveness: number
   anger: boolean
+  wounded: boolean
 }
 
 export interface IMotion {
@@ -37,4 +39,19 @@ export interface IBuff {
   demonPowder?: boolean
   // ビン
   coating?: 'power' | 'crossRange'
+}
+
+export interface ISkill {
+  attackBoost?: number
+  criticalEye?: number
+  weaknessExploit?: number
+  criticalBoost?: number
+  agitator?: number
+  peakPerformance?: number
+  latentPower?: number
+  fortify?: number
+  elementAttack?: number
+  freeElem?: number
+  criticalElement?: number
+  elementBoost?: number
 }
