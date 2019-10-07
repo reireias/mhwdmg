@@ -1,5 +1,5 @@
-import { damage } from '../src/damage'
-import { IMotion, ITarget, IWeapon, Sharpness } from '../src/types/mhwdmg'
+import { damage } from '../../src/damage'
+import { IMotion, ITarget, IWeapon, Sharpness } from '../../src/types/mhwdmg'
 
 interface ICondition {
   weapon: IWeapon
