@@ -1,6 +1,5 @@
-import { damage } from '../../src/damage'
 import { Sharpness } from '../../src/types/mhwdmg'
-import { buildElementalCondition, ICondition } from '../helper'
+import { buildElementalCondition, damageWithCondition, ICondition } from '../helper'
 
 describe('elementalDamage', (): void => {
   describe('sharpness', (): void => {
@@ -19,7 +18,7 @@ describe('elementalDamage', (): void => {
     it('is correct', (): void => {
       sharpnessList.forEach((sharpness: { key: Sharpness, value: number }) => {
         condition.weapon.sharpness = sharpness.key
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(Math.round(100 * sharpness.value))
+        expect(damageWithCondition(condition)).toBe(Math.round(100 * sharpness.value))
       })
     })
   })
@@ -31,7 +30,7 @@ describe('elementalDamage', (): void => {
     it('is correct', (): void => {
       effectivenessList.forEach((effectiveness: number) => {
         condition.target.elementalEffectiveness = effectiveness
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(effectiveness)
+        expect(damageWithCondition(condition)).toBe(effectiveness)
       })
     })
   })
@@ -41,7 +40,7 @@ describe('elementalDamage', (): void => {
 
     it('is 1.1 times normal', (): void => {
       condition.target.anger = true
-      expect(damage(condition.weapon, condition.target, condition.motion)).toBe(110)
+      expect(damageWithCondition(condition)).toBe(110)
     })
   })
 
@@ -51,7 +50,7 @@ describe('elementalDamage', (): void => {
 
     it('is 0.5 times normal', (): void => {
       condition.motion.elementRate = elementRate
-      expect(damage(condition.weapon, condition.target, condition.motion)).toBe(50)
+      expect(damageWithCondition(condition)).toBe(50)
     })
   })
 })

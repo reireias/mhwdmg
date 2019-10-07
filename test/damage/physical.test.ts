@@ -1,6 +1,5 @@
-import { damage } from '../../src/damage'
 import { Sharpness } from '../../src/types/mhwdmg'
-import { buildPhysicalCondition, ICondition } from '../helper'
+import { buildPhysicalCondition, damageWithCondition, ICondition } from '../helper'
 
 describe('physicalDamage', (): void => {
   describe('sharpness', (): void => {
@@ -18,7 +17,7 @@ describe('physicalDamage', (): void => {
     it('is correct', (): void => {
       sharpnessList.forEach((sharpness: { key: Sharpness, value: number }) => {
         condition.weapon.sharpness = sharpness.key
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(100 * sharpness.value)
+        expect(damageWithCondition(condition)).toBe(100 * sharpness.value)
       })
     })
   })
@@ -29,28 +28,28 @@ describe('physicalDamage', (): void => {
     describe('0%', (): void => {
       it('is correct', (): void => {
         condition.weapon.affinity = 0
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(100)
+        expect(damageWithCondition(condition)).toBe(100)
       })
     })
 
     describe('50%', (): void => {
       it('is correct', (): void => {
         condition.weapon.affinity = 50
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(112.5)
+        expect(damageWithCondition(condition)).toBe(112.5)
       })
     })
 
     describe('100%', (): void => {
       it('is correct', (): void => {
         condition.weapon.affinity = 100
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(125)
+        expect(damageWithCondition(condition)).toBe(125)
       })
     })
 
     describe('-50%', (): void => {
       it('is correct', (): void => {
         condition.weapon.affinity = -50
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(87.5)
+        expect(damageWithCondition(condition)).toBe(87.5)
       })
     })
   })
@@ -62,7 +61,7 @@ describe('physicalDamage', (): void => {
     it('is correct', (): void => {
       effectivenessList.forEach((effectiveness: number) => {
         condition.target.physicalEffectiveness = effectiveness
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(effectiveness)
+        expect(damageWithCondition(condition)).toBe(effectiveness)
       })
     })
   })
@@ -74,7 +73,7 @@ describe('physicalDamage', (): void => {
     it('is correct', (): void => {
       motionList.forEach((motionValue: number) => {
         condition.motion.value = motionValue
-        expect(damage(condition.weapon, condition.target, condition.motion)).toBe(motionValue)
+        expect(damageWithCondition(condition)).toBe(motionValue)
       })
     })
   })
@@ -84,7 +83,7 @@ describe('physicalDamage', (): void => {
 
     it('is 1.1 times normal', (): void => {
       condition.target.anger = true
-      expect(damage(condition.weapon, condition.target, condition.motion)).toBe(110)
+      expect(damageWithCondition(condition)).toBe(110)
     })
   })
 })

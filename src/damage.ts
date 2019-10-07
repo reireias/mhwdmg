@@ -1,7 +1,8 @@
+import { applyBuff } from './buff'
 import { ELEMENTAL_SHARPNESS_RATE, PHYSICAL_SHARPNESS_RATE } from './constant'
-import { IMotion, ITarget, IWeapon } from './types/mhwdmg'
+import { IBuff, IMotion, ITarget, IWeapon } from './types/mhwdmg'
 
-function calcAffinity(baseDamage: number, weapon: IWeapon): number {
+function calcExpected(baseDamage: number, weapon: IWeapon): number {
   const affinityRate: number = 1.25
   const plusAffinity: number =
     (Math.round(baseDamage * affinityRate) * Math.max(0, weapon.affinity)) / 100
@@ -17,7 +18,7 @@ function calcAffinity(baseDamage: number, weapon: IWeapon): number {
 function physicalDamage(
   weapon: IWeapon,
   target: ITarget,
-  motion: IMotion
+  motion: IMotion,
 ): number {
   // モーション値 * 武器倍率 / 100 * 会心補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // motion * attack / 100 * affinityRate * sharpnessRate * angerRate * physicalEffectiveness / 100
@@ -29,13 +30,13 @@ function physicalDamage(
       angerRate *
       target.physicalEffectiveness) /
     100
-  return calcAffinity(baseDamage, weapon)
+  return calcExpected(baseDamage, weapon)
 }
 
 function elementalDamage(
   weapon: IWeapon,
   target: ITarget,
-  elementRate?: number
+  elementRate?: number,
 ): number {
   // 属性値 / 10 * 属性補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // element / 10 * elementRate * sharpnessRate * angerRate * elementalEffectiveness / 100
@@ -55,10 +56,12 @@ function elementalDamage(
 export function damage(
   weapon: IWeapon,
   target: ITarget,
-  motion: IMotion
+  motion: IMotion,
+  buff: IBuff
 ): number {
+  const updatedWeapon = applyBuff(weapon, buff)
   return (
-    physicalDamage(weapon, target, motion) +
-    elementalDamage(weapon, target, motion.elementRate)
+    physicalDamage(updatedWeapon, target, motion) +
+    elementalDamage(updatedWeapon, target, motion.elementRate)
   )
 }

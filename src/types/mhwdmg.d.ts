@@ -20,19 +20,19 @@ export interface IMotion {
 
 export interface IBuff {
   // 力の護符
-  powerCharm: boolean
+  powerCharm?: boolean
   // 力の爪
-  powerTalon: boolean
+  powerTalon?: boolean
   // 怪力の種
-  mightSeed: boolean
+  mightSeed?: boolean
   // 怪力の丸薬
-  mightPill: boolean
+  mightPill?: boolean
   // 食事
-  canteen: 'S' | 'M' | 'L'
+  canteen?: 'S' | 'M' | 'L'
   // 鬼人薬
-  demondrug: boolean
+  demondrug?: boolean
   // 鬼人薬G
-  megaDemondrug: boolean
+  megaDemondrug?: boolean
   // 鬼人の粉塵
-  demonPowder: boolean
+  demonPowder?: boolean
 }
