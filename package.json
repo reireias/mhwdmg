@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prepublish": "tsc"
   },

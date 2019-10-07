@@ -14,10 +14,7 @@
     "noImplicitReturns": true,
     "pretty": true,
     "newLine": "lf",
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "outDir": "dist"
   },
   "include": [
     "src/**/*"
