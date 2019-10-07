@@ -1,36 +1,10 @@
 import { damage } from '../../src/damage'
-import { IMotion, ITarget, IWeapon, Sharpness } from '../../src/types/mhwdmg'
-
-interface ICondition {
-  weapon: IWeapon
-  target: ITarget
-  motion: IMotion
-}
-
+import { Sharpness } from '../../src/types/mhwdmg'
+import { buildElementalCondition, buildPhysicalCondition, ICondition } from '../helper'
 
 describe('physicalDamage', (): void => {
-  // base condition: damage = 100
-  function buildCondition(): ICondition {
-    return {
-      motion: {
-        value: 100
-      },
-      target: {
-        anger: false,
-        elementalEffectiveness: 0,
-        physicalEffectiveness: 100
-      },
-      weapon: {
-        affinity: 0,
-        attack: 100,
-        element: 0,
-        sharpness: 'yellow'
-      }
-    }
-  }
-
   describe('sharpness', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildPhysicalCondition()
     const sharpnessList: Array<{ key: Sharpness; value: number }> = [
       { key: 'red', value: 0.5 },
       { key: 'orange', value: 0.75 },
@@ -50,7 +24,7 @@ describe('physicalDamage', (): void => {
   })
 
   describe('affinity', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildPhysicalCondition()
 
     describe('0%', (): void => {
       it('is correct', (): void => {
@@ -82,7 +56,7 @@ describe('physicalDamage', (): void => {
   })
 
   describe('target physicalEffectiveness', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildPhysicalCondition()
     const effectivenessList: number[] = [100, 50, 10]
 
     it('is correct', (): void => {
@@ -94,7 +68,7 @@ describe('physicalDamage', (): void => {
   })
 
   describe('motion', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildPhysicalCondition()
     const motionList: number[] = [100, 50, 10]
 
     it('is correct', (): void => {
@@ -106,7 +80,7 @@ describe('physicalDamage', (): void => {
   })
 
   describe('anger', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildPhysicalCondition()
 
     it('is 1.1 times normal', (): void => {
       condition.target.anger = true
@@ -116,28 +90,8 @@ describe('physicalDamage', (): void => {
 })
 
 describe('elementalDamage', (): void => {
-  // base condition: damage = 100
-  function buildCondition(): ICondition {
-    return {
-      motion: {
-        value: 0
-      },
-      target: {
-        anger: false,
-        elementalEffectiveness: 100,
-        physicalEffectiveness: 0
-      },
-      weapon: {
-        affinity: 0,
-        attack: 100,
-        element: 1000,
-        sharpness: 'green'
-      }
-    }
-  }
-
   describe('sharpness', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildElementalCondition()
     const sharpnessList: Array<{ key: Sharpness; value: number }> = [
       { key: 'red', value: 0.25 },
       { key: 'orange', value: 0.5 },
@@ -158,7 +112,7 @@ describe('elementalDamage', (): void => {
   })
 
   describe('target elementalEffectiveness', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildElementalCondition()
     const effectivenessList: number[] = [100, 50, 10]
 
     it('is correct', (): void => {
@@ -170,7 +124,7 @@ describe('elementalDamage', (): void => {
   })
 
   describe('anger', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildElementalCondition()
 
     it('is 1.1 times normal', (): void => {
       condition.target.anger = true
@@ -179,7 +133,7 @@ describe('elementalDamage', (): void => {
   })
 
   describe('elementRate', (): void => {
-    const condition: ICondition = buildCondition()
+    const condition: ICondition = buildElementalCondition()
     const elementRate = 0.5
 
     it('is 0.5 times normal', (): void => {
