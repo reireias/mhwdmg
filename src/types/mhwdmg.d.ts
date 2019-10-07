@@ -55,3 +55,11 @@ export interface ISkill {
   criticalElement?: number
   elementBoost?: number
 }
+
+export interface ICondition {
+  weapon: IWeapon
+  target: ITarget
+  motion: IMotion
+  buff?: IBuff
+  skill?: ISkill
+}

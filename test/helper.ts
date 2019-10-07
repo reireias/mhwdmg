@@ -1,16 +1,12 @@
-import { damage } from '../src/damage'
-import { IBuff, IMotion, ISkill, ITarget, IWeapon } from '../src/types/mhwdmg'
+import { IBuff, ICondition, ISkill } from '../src/types/mhwdmg'
 
-export interface ICondition {
-  weapon: IWeapon
-  target: ITarget
-  motion: IMotion
+export interface ITestCondition extends ICondition {
   buff: IBuff
   skill: ISkill
 }
 
 // base condition: damage = 100
-export const buildPhysicalCondition = (): ICondition => {
+export const buildPhysicalCondition = (): ITestCondition => {
   return {
     buff: {},
     motion: {
@@ -34,7 +30,7 @@ export const buildPhysicalCondition = (): ICondition => {
 }
 
 // base condition: damage = 100
-export const buildElementalCondition = (): ICondition => {
+export const buildElementalCondition = (): ITestCondition => {
   return {
     buff: {},
     motion: {
@@ -55,8 +51,4 @@ export const buildElementalCondition = (): ICondition => {
       sharpness: 'green'
     }
   }
-}
-
-export const damageWithCondition = (condition: ICondition): number => {
-  return damage(condition.weapon, condition.target, condition.motion, condition.buff, condition.skill)
 }

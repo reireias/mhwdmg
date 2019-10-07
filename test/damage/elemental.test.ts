@@ -1,9 +1,10 @@
+import { damage } from '../../src/damage'
 import { Sharpness } from '../../src/types/mhwdmg'
-import { buildElementalCondition, damageWithCondition, ICondition } from '../helper'
+import { buildElementalCondition, ITestCondition } from '../helper'
 
 describe('elementalDamage', (): void => {
   describe('sharpness', (): void => {
-    const condition: ICondition = buildElementalCondition()
+    const condition: ITestCondition = buildElementalCondition()
     const sharpnessList: Array<{ key: Sharpness; value: number }> = [
       { key: 'red', value: 0.25 },
       { key: 'orange', value: 0.5 },
@@ -18,39 +19,39 @@ describe('elementalDamage', (): void => {
     it('is correct', (): void => {
       sharpnessList.forEach((sharpness: { key: Sharpness, value: number }) => {
         condition.weapon.sharpness = sharpness.key
-        expect(damageWithCondition(condition)).toBe(Math.round(100 * sharpness.value))
+        expect(damage(condition)).toBe(Math.round(100 * sharpness.value))
       })
     })
   })
 
   describe('target elementalEffectiveness', (): void => {
-    const condition: ICondition = buildElementalCondition()
+    const condition: ITestCondition = buildElementalCondition()
     const effectivenessList: number[] = [100, 50, 10]
 
     it('is correct', (): void => {
       effectivenessList.forEach((effectiveness: number) => {
         condition.target.elementalEffectiveness = effectiveness
-        expect(damageWithCondition(condition)).toBe(effectiveness)
+        expect(damage(condition)).toBe(effectiveness)
       })
     })
   })
 
   describe('anger', (): void => {
-    const condition: ICondition = buildElementalCondition()
+    const condition: ITestCondition = buildElementalCondition()
 
     it('is 1.1 times normal', (): void => {
       condition.target.anger = true
-      expect(damageWithCondition(condition)).toBe(110)
+      expect(damage(condition)).toBe(110)
     })
   })
 
   describe('elementRate', (): void => {
-    const condition: ICondition = buildElementalCondition()
+    const condition: ITestCondition = buildElementalCondition()
     const elementRate = 0.5
 
     it('is 0.5 times normal', (): void => {
       condition.motion.elementRate = elementRate
-      expect(damageWithCondition(condition)).toBe(50)
+      expect(damage(condition)).toBe(50)
     })
   })
 })
