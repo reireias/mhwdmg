@@ -19,13 +19,27 @@ function physicalDamage(
   weapon: IWeapon,
   target: ITarget,
   motion: IMotion,
+  coating: 'power' | 'crossRange' | undefined
 ): number {
   // モーション値 * 武器倍率 / 100 * 会心補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // motion * attack / 100 * affinityRate * sharpnessRate * angerRate * physicalEffectiveness / 100
   const sharpnessRate: number = PHYSICAL_SHARPNESS_RATE[weapon.sharpness]
   const angerRate: number = target.anger ? 1.1 : 1.0
+  let coatingRate: number
+  switch(coating) {
+    case 'power':
+      coatingRate = 1.35
+      break
+    case 'crossRange':
+      coatingRate = 1.2
+      break
+    default:
+      coatingRate = 1
+      break
+  }
   const baseDamage =
     (((motion.value * weapon.attack) / 100) *
+      coatingRate *
       sharpnessRate *
       angerRate *
       target.physicalEffectiveness) /
@@ -61,7 +75,7 @@ export function damage(
 ): number {
   const updatedWeapon = applyBuff(weapon, buff)
   return (
-    physicalDamage(updatedWeapon, target, motion) +
+    physicalDamage(updatedWeapon, target, motion, buff.coating) +
     elementalDamage(updatedWeapon, target, motion.elementRate)
   )
 }

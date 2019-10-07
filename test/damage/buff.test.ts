@@ -54,6 +54,13 @@ describe('buff', (): void => {
     expect(damageWithCondition(condition)).toBe(110)
   })
 
+  test('coating is applied', (): void => {
+    condition.buff.coating = 'power'
+    expect(damageWithCondition(condition)).toBe(135)
+    condition.buff.coating = 'crossRange'
+    expect(damageWithCondition(condition)).toBe(120)
+  })
+
   test('all applied', (): void => {
     condition.buff.powerCharm = true
     condition.buff.powerTalon = true

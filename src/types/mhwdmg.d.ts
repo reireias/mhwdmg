@@ -35,4 +35,6 @@ export interface IBuff {
   megaDemondrug?: boolean
   // 鬼人の粉塵
   demonPowder?: boolean
+  // ビン
+  coating?: 'power' | 'crossRange'
 }
