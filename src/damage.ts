@@ -51,6 +51,9 @@ function physicalDamage(weapon: IWeapon, condition: ICondition): number {
 }
 
 function elementalDamage(weapon: IWeapon, condition: ICondition): number {
+  if (weapon.elementHidden) {
+    return 0
+  }
   // 属性値 / 10 * 属性補正 * 斬れ味補正 * 怒り補正 * 肉質 / 100
   // element / 10 * elementRate * sharpnessRate * angerRate * elementalEffectiveness / 100
   const sharpnessRate: number = ELEMENTAL_SHARPNESS_RATE[weapon.sharpness]

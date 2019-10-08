@@ -60,7 +60,7 @@ export function applySkill(
     }
   }
 
-  // 力お解放
+  // 力の解放
   if (skill.latentPower) {
     result.affinity += skill.latentPower * 10
     if (skill.latentPower >= 6) {
@@ -119,6 +119,11 @@ export function applySkill(
     result.element += 60
   } else if (skill.elementBoost === 2 && weapon.element) {
     result.element += 150
+  }
+
+  // 不屈
+  if (skill.fortify) {
+    result.attack *= (1 + 0.1 * skill.fortify)
   }
 
   // 属性上限チェック
