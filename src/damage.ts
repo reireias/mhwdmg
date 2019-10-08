@@ -3,6 +3,13 @@ import { ELEMENTAL_SHARPNESS_RATE, PHYSICAL_SHARPNESS_RATE } from './constant'
 import { applySkill } from './skill'
 import { ICondition, IWeapon } from './types/mhwdmg'
 
+function applyWounded(condition: ICondition): ICondition {
+  const result: ICondition = { ...condition }
+  const current = condition.target.physicalEffectiveness
+  result.target.physicalEffectiveness = current + Math.floor((100 - current) * 0.25)
+  return result
+}
+
 function calcExpected(
   baseDamage: number,
   weapon: IWeapon,
@@ -82,7 +89,11 @@ export function damage(condition: ICondition): number {
   if (condition.skill) {
     applied = applySkill(applied, condition.skill, condition.target)
   }
+  let appliedCondition = condition
+  if (condition.target.wounded) {
+    appliedCondition = applyWounded(appliedCondition)
+  }
   return (
-    physicalDamage(applied, condition) + elementalDamage(applied, condition)
+    physicalDamage(applied, appliedCondition) + elementalDamage(applied, appliedCondition)
   )
 }
