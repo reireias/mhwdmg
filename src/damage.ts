@@ -3,12 +3,16 @@ import { ELEMENTAL_SHARPNESS_RATE, PHYSICAL_SHARPNESS_RATE } from './constant'
 import { applySkill } from './skill'
 import { ICondition, IWeapon } from './types/mhwdmg'
 
-function calcExpected(baseDamage: number, weapon: IWeapon): number {
-  const affinityRate: number = 1.25
+function calcExpected(
+  baseDamage: number,
+  weapon: IWeapon,
+  affinityRate: number,
+  minusAffinityRate: number
+): number {
   const plusAffinity: number =
     (Math.round(baseDamage * affinityRate) * Math.max(0, weapon.affinity)) / 100
   const minusAffinity: number =
-    (Math.round(baseDamage * 0.75) * Math.max(0, -weapon.affinity)) / 100
+    (Math.round(baseDamage * minusAffinityRate) * Math.max(0, -weapon.affinity)) / 100
   const normalAffinity: number =
     (Math.round(baseDamage) *
       (100 - Math.max(0, weapon.affinity) - Math.max(0, -weapon.affinity))) /
@@ -39,7 +43,11 @@ function physicalDamage(weapon: IWeapon, condition: ICondition): number {
       angerRate *
       condition.target.physicalEffectiveness) /
     100
-  return calcExpected(baseDamage, weapon)
+  let affinityRate = 1.25
+  if (condition.skill && condition.skill.criticalBoost) {
+    affinityRate = 1.25 + condition.skill.criticalBoost * 0.05
+  }
+  return calcExpected(baseDamage, weapon, affinityRate, 0.75)
 }
 
 function elementalDamage(weapon: IWeapon, condition: ICondition): number {
@@ -48,14 +56,19 @@ function elementalDamage(weapon: IWeapon, condition: ICondition): number {
   const sharpnessRate: number = ELEMENTAL_SHARPNESS_RATE[weapon.sharpness]
   const angerRate: number = condition.target.anger ? 1.1 : 1.0
   const elementRateValue = condition.motion.elementRate || 1
-  return Math.round(
+  const baseDamage =
     ((weapon.element / 10) *
       elementRateValue *
       sharpnessRate *
       angerRate *
       condition.target.elementalEffectiveness) /
-      100
-  )
+    100
+  if (condition.skill && condition.skill.criticalElement) {
+    const affinityRate = condition.skill.criticalElement === 1 ? 1.35 : 1.55
+    return calcExpected(baseDamage, weapon, affinityRate, 1)
+  } else {
+    return Math.round(baseDamage)
+  }
 }
 
 export function damage(condition: ICondition): number {
