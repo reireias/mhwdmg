@@ -116,8 +116,8 @@ export function damageDetail(condition: ICondition): IDamageDetail {
       physical: Math.round(physicalCritical)
     },
     expected: {
-      elemental: physicalExpected,
-      physical: elementalExpected
+      elemental: elementalExpected,
+      physical: physicalExpected
     }
   }
 }
