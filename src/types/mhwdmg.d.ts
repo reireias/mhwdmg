@@ -63,3 +63,18 @@ export interface ICondition {
   buff?: IBuff
   skill?: ISkill
 }
+
+export interface IDamageDetail {
+  base: {
+    physical: number
+    elemental: number
+  }
+  critical: {
+    physical: number
+    elemental: number
+  }
+  expected: {
+    physical: number
+    elemental: number
+  }
+}

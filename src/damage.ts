@@ -1,7 +1,7 @@
 import { applyBuff } from './buff'
 import { ELEMENTAL_SHARPNESS_RATE, PHYSICAL_SHARPNESS_RATE } from './constant'
 import { applySkill } from './skill'
-import { ICondition, IWeapon } from './types/mhwdmg'
+import { ICondition, IDamageDetail, IWeapon } from './types/mhwdmg'
 
 function applyWounded(condition: ICondition): ICondition {
   const result: ICondition = { ...condition }
@@ -50,11 +50,7 @@ function physicalDamage(weapon: IWeapon, condition: ICondition): number {
       angerRate *
       condition.target.physicalEffectiveness) /
     100
-  let affinityRate = 1.25
-  if (condition.skill && condition.skill.criticalBoost) {
-    affinityRate = 1.25 + condition.skill.criticalBoost * 0.05
-  }
-  return calcExpected(baseDamage, weapon, affinityRate, 0.75)
+  return baseDamage
 }
 
 function elementalDamage(weapon: IWeapon, condition: ICondition): number {
@@ -73,15 +69,10 @@ function elementalDamage(weapon: IWeapon, condition: ICondition): number {
       angerRate *
       condition.target.elementalEffectiveness) /
     100
-  if (condition.skill && condition.skill.criticalElement) {
-    const affinityRate = condition.skill.criticalElement === 1 ? 1.35 : 1.55
-    return calcExpected(baseDamage, weapon, affinityRate, 1)
-  } else {
-    return Math.round(baseDamage)
-  }
+  return baseDamage
 }
 
-export function damage(condition: ICondition): number {
+export function damageDetail(condition: ICondition): IDamageDetail {
   let applied: IWeapon = condition.weapon
   if (condition.buff) {
     applied = applyBuff(applied, condition.buff)
@@ -93,7 +84,45 @@ export function damage(condition: ICondition): number {
   if (condition.target.wounded) {
     appliedCondition = applyWounded(appliedCondition)
   }
-  return (
-    physicalDamage(applied, appliedCondition) + elementalDamage(applied, appliedCondition)
-  )
+
+  // physical
+  let affinityRate = 1.25
+  if (appliedCondition.skill && appliedCondition.skill.criticalBoost) {
+    affinityRate = 1.25 + appliedCondition.skill.criticalBoost * 0.05
+  }
+  const physicalBase = physicalDamage(applied, appliedCondition)
+  const physicalCritical = physicalBase * affinityRate
+  const physicalExpected = calcExpected(physicalBase, applied, affinityRate, 0.75)
+
+  // elemental
+  const elementalBase = elementalDamage(applied, appliedCondition)
+  let elementalCritical: number
+  let elementalExpected: number
+  if (appliedCondition.skill && appliedCondition.skill.criticalElement) {
+    affinityRate = appliedCondition.skill.criticalElement === 1 ? 1.35 : 1.55
+    elementalCritical = elementalBase * affinityRate
+    elementalExpected = calcExpected(elementalBase, applied, affinityRate, 1)
+  } else {
+    elementalCritical = Math.round(elementalBase)
+    elementalExpected = elementalCritical
+  }
+  return {
+    base: {
+      elemental: Math.round(elementalBase),
+      physical: Math.round(physicalBase)
+    },
+    critical: {
+      elemental: Math.round(elementalCritical),
+      physical: Math.round(physicalCritical)
+    },
+    expected: {
+      elemental: physicalExpected,
+      physical: elementalExpected
+    }
+  }
+}
+
+export function damage(condition: ICondition): number {
+  const detail = damageDetail(condition)
+  return detail.expected.physical + detail.expected.elemental
 }
