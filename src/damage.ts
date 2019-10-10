@@ -80,9 +80,11 @@ export function damageDetail(condition: ICondition): IDamageDetail {
   if (condition.skill) {
     applied = applySkill(applied, condition.skill, condition.target)
   }
-  let appliedCondition = condition
+  let appliedCondition: ICondition
   if (condition.target.wounded) {
-    appliedCondition = applyWounded(appliedCondition)
+    appliedCondition = applyWounded(condition)
+  } else {
+    appliedCondition = condition
   }
 
   // physical
