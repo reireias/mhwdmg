@@ -4,7 +4,7 @@ import { applySkill } from './skill'
 import { ICondition, IDamageDetail, IWeapon } from './types/mhwdmg'
 
 function applyWounded(condition: ICondition): ICondition {
-  const result: ICondition = { ...condition }
+  const result: ICondition = { ...condition, target: { ...condition.target } }
   const current = condition.target.physicalEffectiveness
   result.target.physicalEffectiveness = current + Math.floor((100 - current) * 0.25)
   return result
