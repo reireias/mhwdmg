@@ -33,6 +33,15 @@ describe('skill', (): void => {
       expect(damage(condition)).toBe(440)
     })
 
+    test('criticalEye over 100%', (): void => {
+      condition.weapon.attack = 400
+      condition.weapon.affinity = 100
+      expect(damage(condition)).toBe(500)
+      // Lv7
+      condition.skill.criticalEye = 7
+      expect(damage(condition)).toBe(500)
+    })
+
     test('weaknessExploit is applied', (): void => {
       condition.weapon.attack = 400
       condition.skill.weaknessExploit = 1

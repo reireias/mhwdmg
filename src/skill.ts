@@ -130,5 +130,8 @@ export function applySkill(
   if (result.element > elementMax) {
     result.element = elementMax
   }
+
+  // 会心上限チェック
+  result.affinity = Math.min(result.affinity, 100)
   return result
 }
