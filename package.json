@@ -1,6 +1,6 @@
 {
   "name": "mhwdmg",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "damage calcurator for MHW IB",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
