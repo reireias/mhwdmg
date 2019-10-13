@@ -2,7 +2,7 @@ import { damage, damageDetail } from 'mhwdmg'
 import { IBuff, ICondition, IMotion, ISkill, ITarget, IWeapon } from 'mhwdmg/dist/types/mhwdmg'
 
 // basic
-const weapon: IWeapon= {
+const weapon: IWeapon = {
   affinity: 0,
   attack: 200,
   element: 200,
