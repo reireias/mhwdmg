@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/mhwdmg.svg)](https://badge.fury.io/js/mhwdmg)[![Build Status](https://travis-ci.org/reireias/mhwdmg.svg?branch=master)](https://travis-ci.org/reireias/mhwdmg)
+[![npm version](https://badge.fury.io/js/mhwdmg.svg)](https://badge.fury.io/js/mhwdmg) [![Build Status](https://travis-ci.org/reireias/mhwdmg.svg?branch=master)](https://travis-ci.org/reireias/mhwdmg)
 # MHW DMG
 
 TypeScript and JavaScript library for damage calcuration at MonsterHunterWorld: Iceborne.
